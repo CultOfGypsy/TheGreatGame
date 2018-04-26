@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>The Great Game</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body{
+                background-color: gray;
+                color: white;
+                text-align: center;
+                font-family: fantasy;
+                
+                
+            }
+            form{
+                margin-left: auto;
+                margin-right: auto;
+            }
+        </style>
+        <script>
+            var theNumber = 17; 
+            var message = "Detective";
+            var name = prompt("Enter Your First Name to Play The Great Game!", "");
+            document.write("<h2>" + message + " " + name + " Holmes, are ready to play?</h2>");
+            
+            function initialize()
+            {
+                theNumber = Math.random();           //get a random number
+                theNumber = theNumber * 100;         //multiply by 100
+                theNumber = Math.floor(theNumber);   //round down
+                
+                document.guessForm.userInput.focus();  //go back for another guess
+                document.guessForm.userInput.select();  //highlight the number
+            } //init
+    
+            function checkGuess()
+            {
+                var userGuess = eval(document.guessForm.userGuess.value);
+                
+                if (theNumber === userGuess)
+                {
+                    alert("Mystery Solved!");
+                    document.guessForm.thePicture.src = "closed2.png";
+                    //refreshID = setInterval("changePicture()", 250); could not get animation to work? 
+                }
+                else
+                {
+                    if (userGuess > theNumber)
+                    { 
+                      alert("That is incorrect. Hint: Go DOWN to Buckingham Palace");//too high
+                      document.guessForm.thePicture.src = "magnifier.jpg";
+                    } 
+                    else
+                    {
+                      alert("That is incorrect. Hint: Look UP at the clock tower");//too low
+                      document.guessForm.thePicture.src = "key.jpg";
+                    }
+                    document.guessForm.userGuess.focus();
+                    document.guessForm.userGuess.select();
+                }
+            document.guessForm.userGuess.focus();
+            document.guessForm.userGuess.select(); 
+            }
+            
+            function changePicture()
+            {
+                if (thePictureNumber === 1)
+                    document.thePicture.src = "s1.jpg";
+                if (thePictureNumber === 2)
+                    document.thePicture.src = "solved2.jpg";
+                if (thePictureNumber === 3)
+                    document.thePicture.src = "s2.jpg";
+                thePictureNumber++; //thePictureNumber=thePictureNumber + 1
+                if (thePictureNumber > 3)
+                    thePictureNumber = 1;
+            }
+            
+            </script>
+    </head>
+    <body onLoad="intialize()" background="london4.jpg">
+        <h1>The Game is Afoot!</h1>
+        <form name="guessForm" action="javascript:checkGuess()">
+            Choose a Number between 1-99: <input type="text" name="userGuess" value="0" size="10" maxlength="2" required/>
+            <br><br>
+            <img src="tv2.jpg" name="thePicture">
+            <br><br>
+            <br><br>
+            <br>
+            <input type="button" id="aGuess" value="Take A Guess" onclick="checkGuess()">
+            <input type="reset" value="Reset the Form" onclick="stopInterval()">
+            <br><br>
+        </form>
+    </body>
+</html>
